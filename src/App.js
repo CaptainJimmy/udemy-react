@@ -68,16 +68,23 @@ class App extends Component {
             font: 'inherit',
             border: '1px solid blue',
             padding: '8px',
-            cursor: 'pointer'   
+            cursor: 'pointer' 
+        }
+        let classes = [];
+        if (this.state.persons.length <= 2){
+            classes.push('red')
+        }
+        if (this.state.persons.length <= 1){
+            classes.push('bold')
         }
         let persons = null
         let buttonText = null
 
         if (this.state.showPersons){
             persons = (
-                <div>
+                <div className={classes.join(' ')}>
                     {this.state.persons.map((person,index) =>{
-                        return <Person 
+                        return <Person
                         click={() => this.deletePersonHandler(index)}
                         name={person.name} 
                         age={person.age} 
@@ -87,25 +94,30 @@ class App extends Component {
                         />
                         
 
-                    })}
+                    }
+                    )
+            
+                    }
                 </div> 
+               
             )
             buttonText = "Hide Names"
-            
+            style.backgroundColor = "green" 
+
         }
         else buttonText = "Show Names"
     
         
         return ( 
-     
         <div className = "App" >
-            <h1> turkey shoes </h1> 
+            <h1 className={classes.join(" ")}> turkey shoes </h1> 
             <div>
             <button style={style}
             onClick={this.togglePersonsHandler}> {buttonText} </button>
             {persons}
             </div>
         </div>
+
         );
     }
 }
